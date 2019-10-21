@@ -35,7 +35,7 @@ Range: items=[range_start]-[range_end] - в заголовке HTTP запрос
 
 params_dict = {
     'minId': 60000,                      # min id of a record
-    'maxId': 100331,                    # max id of a record
+    #'maxId': 100331,                    # max id of a record
     'minDuration': 180,              # every record with a duration min 180 secs
     'sampleRate': 1000,              # with Fs = 1000 Hz
     'minBloodPressureDiastolic': 1,  # with diastolic blood pressure measurement >= 1!
@@ -45,7 +45,10 @@ params_dict = {
 
 download_path = None  # Path to download records, if None downloading will be into the project's folder
 
-params = [k + '=' + str(v) for k, v in params_dict.items()]
-params = '&'.join(params)
+
+with open('data/last_record_id.txt', 'r') as f:
+    params_dict['minId'] = f.readline()
+print(params_dict)
+
 
 
