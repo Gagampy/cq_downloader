@@ -45,10 +45,12 @@ params_dict = {
 
 download_path = None  # Path to download records, if None downloading will be into the project's folder
 
-
-with open('data/last_record_id.txt', 'r') as f:
-    params_dict['minId'] = f.readline()
-print(params_dict)
+try:
+    with open('data/last_record_id.txt', 'r') as f:
+        params_dict['minId'] = f.readline()
+    print(params_dict)
+except:
+    pass
 
 
 
