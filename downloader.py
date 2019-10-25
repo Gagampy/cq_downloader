@@ -58,18 +58,18 @@ def download_records():
                     dp = 'x'
 
                 # Сохранение ЭКГ:
-                with open('ecg/{0}-1K-raw-{1}-{2}.wav'.format(c['id'], sp, dp), 'wb') as f:
+                with open('ecg/{0}-{1}-1K-raw-{2}-{3}.wav'.format(c['id'], c['accountId'], sp, dp), 'wb') as f:
                     f.write(wav_ecg)
 
                 # Сохранение ППГ:
-                with open('ppg/{0}-1K-pgg-{1}-{2}.wav'.format(c['id'], sp, dp), 'wb') as f:
+                with open('ppg/{0}-{1}-1K-pgg-{2}-{3}.wav'.format(c['id'], c['accountId'], sp, dp), 'wb') as f:
                     f.write(wav_ppg)  # сохраним на диск
 
                 # Cохранение RR:
                 rr = api.first('/analysis/{0}/rr'.format(c['id']))  # RR интервалы
                 if rr == None or 'error' in rr and rr['error'] != 0: continue  # пропускаем плохие
 
-                with open('rr/{0}-rr.json'.format(c['id']), 'w') as f:
+                with open('rr/{0}-{1}-rr.json'.format(c['id'], c['accountId']), 'w') as f:
                     json.dump(rr, f)  # сохраним на диск
 
             # Пропускаем, если пары нет:
@@ -83,9 +83,9 @@ host_cloud = 'b-g2.cardioqvark.ru'
 port_cloud = 443
 prev_id = params_dict['minId']
 
-while True:
-    try:
-        download_records()
-    except:
-        print('Что-то случилось, но всё кулл.')
+#while True:
+#    try:
+download_records()
+#    except:
+#        print('Что-то случилось, но всё кулл.')
 
